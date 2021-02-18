@@ -15,13 +15,35 @@ public class FilesInOut
 {
     public static void main(String[] args) throws FileNotFoundException
     {
-    	File inputFile = new File("input.txt");
+    	/*File inputFile = new File("input.txt");
     	Scanner in = new Scanner(inputFile);
     	PrintWriter out = new PrintWriter("output.txt");
     	String tempToken;
     	ArrayList allNames = new ArrayList();
     	ArrayList allNumbers = new ArrayList();
-    	boolean isUppercase = false;
+    	boolean isUppercase = false;*/
+    	boolean isUppercase;
+    	File inputFile;
+    	Scanner in;
+    	PrintWriter out;
+    	String tempToken;
+    	ArrayList allNames = new ArrayList();
+    	ArrayList allNumbers = new ArrayList();
+    	if(args[0].toUpperCase().equals("-u".toUpperCase()))
+    	{
+    		isUppercase = true;
+    		inputFile = new File(args[1]);
+    		out = new PrintWriter(args[2]);
+    	}
+    	else
+    	{
+        	inputFile = new File(args[0]);
+        	in = new Scanner(inputFile);
+        	out = new PrintWriter(args[1]);
+        	isUppercase = false;
+
+    	}
+    	in = new Scanner(inputFile);
 
     	while(in.hasNext())
     	{
@@ -46,7 +68,7 @@ public class FilesInOut
     		}
     		else
     		{
-    			out.print(convertToTitleCaseIteratingChars(allNames.get(i).toString() + " " + allNames.get(i + 1)) + " ");    			
+    			out.print(convertToTitleCaseIteratingChars(allNames.get(i).toString() + " " + allNames.get(i + 1)) + " ");
     		}
     		out.println(allNumbers.get(numberCounter));
     		numberCounter++;
