@@ -20,6 +20,8 @@ public class FilesInOut
     	PrintWriter out = new PrintWriter("output.txt");
     	String tempToken;
     	ArrayList allNames = new ArrayList();
+    	ArrayList allNumbers = new ArrayList();
+    	boolean isUppercase = false;
 
     	while(in.hasNext())
     	{
@@ -27,9 +29,27 @@ public class FilesInOut
     		if(!isNumeric(tempToken))
     		{
     			allNames.add(tempToken);
-    			//out.println(tempToken.toUpperCase());
-
     		}
+    		else
+    		{
+    			allNumbers.add(tempToken);
+    		}
+    	}
+    	
+    	int numberCounter = 0;
+    	
+    	for(int i = 0; i < allNames.size(); i += 2)
+    	{
+    		if(isUppercase)
+    		{
+        		out.print(allNames.get(i).toString().toUpperCase() + " " + allNames.get(i+1).toString().toUpperCase() + " ");
+    		}
+    		else
+    		{
+    			out.print(convertToTitleCaseIteratingChars(allNames.get(i).toString() + " " + allNames.get(i + 1)) + " ");    			
+    		}
+    		out.println(allNumbers.get(numberCounter));
+    		numberCounter++;
     	}
     	in.close();
     	out.close();
@@ -53,6 +73,37 @@ public class FilesInOut
             return false;
         }
         return true;
+    }
+    
+    public static String convertToTitleCaseIteratingChars(String text)
+    {
+        if (text == null || text.isEmpty())
+        {
+            return text;
+        }
+
+        StringBuilder converted = new StringBuilder();
+
+        boolean convertNext = true;
+        for (char ch : text.toCharArray())
+        {
+            if (Character.isSpaceChar(ch))
+            {
+                convertNext = true;
+            }
+            else if (convertNext)
+            {
+                ch = Character.toTitleCase(ch);
+                convertNext = false;
+            }
+            else
+            {
+                ch = Character.toLowerCase(ch);
+            }
+            converted.append(ch);
+        }
+
+        return converted.toString();
     }
 
 } // FilesInOut
