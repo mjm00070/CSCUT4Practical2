@@ -29,7 +29,7 @@ public class FilesInOut
     	String tempToken;
     	ArrayList allNames = new ArrayList();
     	ArrayList allNumbers = new ArrayList();
-    	if(args[0].toUpperCase().equals("-u".toUpperCase()))
+    	if(args[0].toUpperCase().equals("-u".toUpperCase())) //if "-u" is given as a parameter
     	{
     		isUppercase = true;
     		inputFile = new File(args[1]);
@@ -37,11 +37,10 @@ public class FilesInOut
     	}
     	else
     	{
+    		isUppercase = false;
         	inputFile = new File(args[0]);
         	in = new Scanner(inputFile);
         	out = new PrintWriter(args[1]);
-        	isUppercase = false;
-
     	}
     	in = new Scanner(inputFile);
 
@@ -75,7 +74,6 @@ public class FilesInOut
     	}
     	in.close();
     	out.close();
-        // Finally, add code to read the filenames as arguments from the command line.
 
         System.out.println("hello mate");
     } // main
