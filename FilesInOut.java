@@ -12,78 +12,17 @@ import java.lang.Object;
  *
  */
 public class FilesInOut
-{
-    /*public static void main(String[] args) throws FileNotFoundException
-    {
-    	boolean isUppercase;
-    	File inputFile;
-    	Scanner in;
-    	PrintWriter out;
-    	String tempToken;
-    	ArrayList<String> allNames = new ArrayList<String>();
-    	ArrayList<String> allNumbers = new ArrayList<String>();
-    	if(args[0].toUpperCase().equals("-u".toUpperCase())) //if "-u" is given as a parameter
-    	{
-    		isUppercase = true;
-    		inputFile = new File(args[1]);
-    		out = new PrintWriter(args[2]);
-    	}
-    	else
-    	{
-    		isUppercase = false;
-        	inputFile = new File(args[0]);
-        	in = new Scanner(inputFile);
-        	out = new PrintWriter(args[1]);
-    	}
-    	in = new Scanner(inputFile);
-
-    	while(in.hasNext())
-    	{
-    		tempToken = in.next();
-    		if(!isNumeric(tempToken))
-    		{
-    			allNames.add(tempToken);
-    		}
-    		else
-    		{
-    			allNumbers.add(tempToken);
-    		}
-    	}
-    	
-    	int numberCounter = 0;
-    	
-    	for(int i = 0; i < allNames.size(); i += 2)
-    	{
-    		if(isUppercase)
-    		{
-        		out.print(allNames.get(i).toString().toUpperCase() + " " + allNames.get(i+1).toString().toUpperCase() + " ");
-    		}
-    		else
-    		{
-    			out.print(convertToTitleCaseIteratingChars(allNames.get(i).toString() + " " + allNames.get(i + 1)) + " ");
-    		}
-    		out.println(allNumbers.get(numberCounter));
-    		numberCounter++;
-    	}
-    	in.close();
-    	out.close();
-
-        System.out.println("Program has been executed");
-    } // main*/
-	
+{	
     public static void main(String[] args) throws FileNotFoundException
     {
     	//JUST FOR TESTING
-    	String[] testArgs = new String[3];
-    	testArgs[0] = "inputm.txt";
-    	testArgs[1] = "output.txt";
+    	String[] testArgs = {"inputm.txt", "output.txt" };
     	
     	boolean isUppercase;
     	File inputFile;
     	Scanner in;
     	PrintWriter out;
     	String tempToken;
-    	ArrayList<String> allNames = new ArrayList<String>();
     	ArrayList<String> allNumbers = new ArrayList<String>();
     	ArrayList<ArrayList<String>> groupedNames = new ArrayList<ArrayList<String>>();
     	if(testArgs[0].toUpperCase().equals("-u".toUpperCase())) //if "-u" is given as a parameter
@@ -118,34 +57,35 @@ public class FilesInOut
     		lineCounter++;
     	}
     	
-    	/*while(in.hasNext())
-    	{
-    		tempToken = in.next();
-    		if(!isNumeric(tempToken))
-    		{
-    			allNames.add(tempToken);
-    		}
-    		else
-    		{
-    			allNumbers.add(tempToken);
-    		}
-    	}*/
-    	
-    	int numberCounter = 0;
-    	
-    	for(int i = 0; i < allNames.size(); i += 2)
+    	for(int i = 0; i < allNumbers.size(); i++)
     	{
     		if(isUppercase)
     		{
-        		out.print(allNames.get(i).toString().toUpperCase() + " " + allNames.get(i+1).toString().toUpperCase() + " ");
+    			if(groupedNames.get(i).size() > 2) //If the person has more than 2 names
+    			{
+    				out.print(groupedNames.get(i).get(0).toUpperCase() + " " + groupedNames.get(i).get(1).toUpperCase()
+    						+ ". " + groupedNames.get(i).get(2).toUpperCase() + " ");
+    			}
+    			else
+    			{
+    				out.print(groupedNames.get(i).get(0).toUpperCase() + " " + groupedNames.get(i).get(1).toUpperCase() + " ");
+    			}
     		}
     		else
     		{
-    			out.print(convertToTitleCaseIteratingChars(allNames.get(i).toString() + " " + allNames.get(i + 1)) + " ");
+    			if(groupedNames.get(i).size() > 2) //If the person has more than 2 names
+    			{
+    				out.print(convertToTitleCaseIteratingChars(groupedNames.get(i).get(0) + " " + groupedNames.get(i).get(1) + ". "
+    						+ groupedNames.get(i).get(2)) + " ");
+    			}
+    			else
+    			{
+    				out.print(convertToTitleCaseIteratingChars(groupedNames.get(i).get(0) + " " + groupedNames.get(i).get(1)) + " ");
+    			}
     		}
-    		out.println(allNumbers.get(numberCounter));
-    		numberCounter++;
+    		out.println(allNumbers.get(i));
     	}
+
     	in.close();
     	out.close();
 
