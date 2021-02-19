@@ -14,10 +14,7 @@ import java.lang.Object;
 public class FilesInOut
 {	
     public static void main(String[] args) throws FileNotFoundException
-    {
-    	//JUST FOR TESTING
-    	String[] testArgs = {"inputm.txt", "output.txt" };
-    	
+    {    	
     	boolean isUppercase;
     	File inputFile;
     	Scanner in;
@@ -25,18 +22,18 @@ public class FilesInOut
     	String tempToken;
     	ArrayList<String> allNumbers = new ArrayList<String>();
     	ArrayList<ArrayList<String>> groupedNames = new ArrayList<ArrayList<String>>();
-    	if(testArgs[0].toUpperCase().equals("-u".toUpperCase())) //if "-u" is given as a parameter
+    	if(args[0].toUpperCase().equals("-u".toUpperCase())) //if "-u" is given as a parameter
     	{
     		isUppercase = true;
-    		inputFile = new File(testArgs[1]);
-    		out = new PrintWriter(testArgs[2]);
+    		inputFile = new File(args[1]);
+    		out = new PrintWriter(args[2]);
     	}
     	else
     	{
     		isUppercase = false;
-        	inputFile = new File(testArgs[0]);
+        	inputFile = new File(args[0]);
         	in = new Scanner(inputFile);
-        	out = new PrintWriter(testArgs[1]);
+        	out = new PrintWriter(args[1]);
     	}
     	in = new Scanner(inputFile);
     	
