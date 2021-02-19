@@ -14,28 +14,78 @@ import java.lang.Object;
 public class FilesInOut
 {	
     public static void main(String[] args) throws FileNotFoundException
-    {    	
-    	boolean isUppercase;
+    {
+    	Scanner userInput = new Scanner(System.in);
+    	boolean validInput = false;
+    	boolean isUppercase = false;
     	File inputFile;
-    	Scanner in;
-    	PrintWriter out;
+    	String inputFileName;
+    	String outputFileName;
+    	String caseFlag;
+    	Scanner in = null;
+    	PrintWriter out = null;
     	String tempToken;
     	ArrayList<String> allNumbers = new ArrayList<String>();
     	ArrayList<ArrayList<String>> groupedNames = new ArrayList<ArrayList<String>>();
-    	if(args[0].toUpperCase().equals("-u".toUpperCase())) //if "-u" is given as a parameter
+    	
+    	while(!validInput) //Continuously asks for input until a file that exists has been input
     	{
-    		isUppercase = true;
-    		inputFile = new File(args[1]);
-    		out = new PrintWriter(args[2]);
+        	System.out.println("Supply filename for input: ");
+        	try
+        	{
+        		inputFileName = userInput.nextLine();
+        		inputFile = new File(inputFileName);
+        		in = new Scanner(inputFile);
+        		validInput = true;
+        	}
+        	catch(IOException e)
+        	{
+        		System.err.println(("IOException: " + e.getMessage() + " not found"));
+        	}
     	}
-    	else
+    	validInput = false;
+    	while(!validInput) //Continuously asks for input until a valid input is given
     	{
-    		isUppercase = false;
-        	inputFile = new File(args[0]);
-        	in = new Scanner(inputFile);
-        	out = new PrintWriter(args[1]);
+        	System.out.println("Supply filename for output: ");
+        	try
+        	{
+        		outputFileName = userInput.nextLine();
+        		out = new PrintWriter(outputFileName);
+        		validInput = true;
+        	}
+        	catch(FileNotFoundException e)
+        	{
+        		System.err.println("FileNotFoundException: " + e.getMessage() + " not openable");
+        	}
     	}
-    	in = new Scanner(inputFile);
+    	validInput = false;
+    	while(!validInput) //Continuously asks for input until a valid input is given
+    	{
+    		System.out.println("Input -u for upper case or -t for title case: ");
+    		try
+    		{
+    			caseFlag = userInput.nextLine();
+    			if(caseFlag.toLowerCase().equals("-u"))
+    			{
+    				isUppercase = true;
+    				validInput = true;
+    			}
+    			else if(caseFlag.toLowerCase().equals("-t"))
+    			{
+    				isUppercase = false;
+    				validInput = true;
+    			}
+    			else
+    			{
+    				System.out.println("That is not a valid input");
+    			}
+    		}
+    		catch(Exception e)
+    		{
+    			System.out.println("That is not a valid input");
+    		}
+    	}
+    	userInput.close();
     	
     	int lineCounter = 0;
     	while(in.hasNextLine())
